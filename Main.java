@@ -1,48 +1,40 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 
 public class Main {
     public static void main(String[] args) {
 
+
         System.out.println("Hello world!");
 
+        String file = "C:\\Users\\BE218\\JavaFile\\arrivingAnimals.txt";
+        BufferedReader reader = null;
+        String line = "";
+
         try {
-            // create a file writer and open it
-            BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\BE218\\javafile\\myNewFile.txt"));
-            writer.write("Writing to a new file this is my first line");
-            writer.write("\nThis is on a new line");
-            writer.write("\nThis is a string and it is my third line");
+            reader = new BufferedReader(new FileReader(file));
+            while ((line = reader.readLine()) != null) {
 
-            // close the file
-            writer.close();
+                String[] row = line.split(",");
 
-            // tell us that our program wrote in a file
-            System.out.println("program wrote to a file!");
-
-        } catch (IOException e) {
+                for (String index : row) {
+                    System.out.printf("%-10s", index);
+                }
+                System.out.println();
+            }
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\BE218\\javafile\\myNewFile.txt"));
-            String myLine = "";
-            while ((myLine = reader.readLine()) != null) {
-                System.out.println(myLine);
+        finally {
+            try {
                 reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-
-        String path = "C:\\Users\\BE218\\javafile\\arrivingAnimals.txt";
-        String myFileline = "";
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            while ((myFileline = reader.readLine()) != null) {
-                System.out.println(myFileline);
-            }
-
-
+        
     }
 }
